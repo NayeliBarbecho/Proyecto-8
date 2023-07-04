@@ -48,6 +48,10 @@ private ResourceBundle mensajes;
         txtTiempo = new javax.swing.JTextField();
         btnAceptar = new javax.swing.JButton();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Cancion"));
 

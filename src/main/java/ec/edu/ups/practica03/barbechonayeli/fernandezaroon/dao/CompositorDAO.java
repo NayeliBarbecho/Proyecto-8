@@ -53,14 +53,6 @@ public class CompositorDAO implements IControlador {
        
     }
 
-
-   
-     
-
-   
-    
-   
-
     @Override
     public List<Compositor> list() {
         return listaCompositor;

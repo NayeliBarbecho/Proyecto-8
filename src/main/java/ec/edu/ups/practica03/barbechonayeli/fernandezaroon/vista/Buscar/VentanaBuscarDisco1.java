@@ -52,7 +52,7 @@ private ResourceBundle mensajes;
 
         lblAnios.setText("Años de Lanzamiento:");
 
-        txtCodigo.setEditable(false);
+        txtNombre.setEditable(false);
 
         txtAnios.setEditable(false);
 

@@ -18,13 +18,11 @@ public class ControladorCompositor {
     private Compositor compositor;
     private Cancion cancion;
     private IControlador compositorDAO;
-     private List<Cancion> listaCanciones;
-    private List<Compositor> listaCompositores;
+     
 
     public ControladorCompositor(IControlador compositorDAO) {
         this.compositorDAO=compositorDAO;
-        listaCanciones = new ArrayList<>();
-        listaCompositores = new ArrayList<>();
+       
     }
      
     

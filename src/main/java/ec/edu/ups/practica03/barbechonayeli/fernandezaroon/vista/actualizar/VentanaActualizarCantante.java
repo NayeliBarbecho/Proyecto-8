@@ -61,7 +61,12 @@ public class VentanaActualizarCantante extends javax.swing.JInternalFrame {
         lblSencillos = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JButton();
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        setIconifiable(true);
+        setMaximizable(true);
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Compositor"), "Buscar Cantante"));
 
         lblCodigo.setText("Codigo");
