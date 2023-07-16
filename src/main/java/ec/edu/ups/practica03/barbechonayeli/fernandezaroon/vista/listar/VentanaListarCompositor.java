@@ -4,8 +4,10 @@
  */
 package ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.listar;
 
+import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.controlador.ControladorCantante;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.controlador.ControladorCompositor;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cancion;
+import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cantante;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Compositor;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -16,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VentanaListarCompositor extends javax.swing.JInternalFrame {
 ControladorCompositor compositorControlador;
+ControladorCantante cantanteControlador;
     /**
      * Creates new form VentanaListarCompositor
      */
@@ -74,11 +77,11 @@ ControladorCompositor compositorControlador;
 
             },
             new String [] {
-                "Codigo", "Nombre", "Apellido", "Edad", "Nacionalidad", "Salario", "Numero Composiciones"
+                "Codigo", "Nombre", "Apellido", "Edad", "Nacionalidad", "Salario", "Numero Composiciones", "Salario Final"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -124,11 +127,11 @@ ControladorCompositor compositorControlador;
 
             },
             new String [] {
-                "Codigo", "Nombre", "Apellido", "Edad", "Nacionalidad", "Salario", "Salario Total", "Nombre Artistico", "Genero Musical", "Numero Sencillos", "Numero Conciertos", "Numero Giras"
+                "Codigo", "Nombre", "Apellido", "Edad", "Nacionalidad", "Salario", "Salario Total", "Nombre Artistico", "Genero Musical", "Numero Sencillos", "Numero Conciertos", "Numero Giras", "Salario Final"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -238,12 +241,14 @@ private void cargarDatosCompositor(){
             int edadU=compositor.getEdad();
             int composicionesU=compositor.getNumeroDeComposiciones();
             double salarioU=compositor.getSalario();
+            double salarioFinalU=compositor.calcularSalario();
             String codigo=String.valueOf(codigoU);
+            String salarioFinal=String.valueOf(salarioFinalU);
             String edad=String.valueOf(edadU);
             String composiciones=String.valueOf(composicionesU);
             String salario=String.valueOf(salarioU);
             
-            Object[] rowData = {codigo,nombre,apellido,edad,nacionalidad,salario,composiciones};
+            Object[] rowData = {codigo,nombre,apellido,edad,nacionalidad,salario,composiciones,salarioFinal};
             modelo.addRow(rowData);
         }
         this.tblCompositor.setModel(modelo);
@@ -265,6 +270,35 @@ private void cargarDatosTablaCancion() {
         }
         this.tblCancion.setModel(modelo);
     }
+private void cargarDatosCantante(){
+     DefaultTableModel modelo = (DefaultTableModel) this.tblCantante.getModel();
+        modelo.setNumRows(0);
+        List<Cantante> listaCantante = cantanteControlador.listar();
+        for (Cantante cantante: listaCantante) {
+            String nombre = cantante.getNombre();
+            String nombreArtistico = cantante.getNombreArtistico();
+
+            String apellido = cantante.getApellido();
+            String nacionalidad = cantante.getNacionalidad();
+            String genero = cantante.getGeneroMusica();
+
+            int codigoU=cantante.getCodigo();
+            int edadU=cantante.getEdad();
+            int conciertosU=cantante.getNumeroDeConciertos();
+            int girasU=cantante.getNumeroDeGiras();
+            int sencillosU=cantante.getNumeroDeSencillos();
+            double salarioU=cantante.getSalario();
+            double salarioFinalU=cantante.calcularSalario();
+            String salarioFinal=String.valueOf(salarioFinalU);
+            String codigo=String.valueOf(codigoU);
+            String edad=String.valueOf(edadU);
+            String salario=String.valueOf(salarioU);
+            
+            Object[] rowData = {codigo,nombre,apellido,edad,nacionalidad,salario,nombreArtistico,genero,sencillosU,conciertosU,girasU,salarioFinal};
+            modelo.addRow(rowData);
+        }
+        this.tblCantante.setModel(modelo);
+}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

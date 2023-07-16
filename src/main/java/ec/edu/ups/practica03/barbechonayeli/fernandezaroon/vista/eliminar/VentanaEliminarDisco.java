@@ -6,6 +6,8 @@ package ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.eliminar;
 
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.controlador.ControladorCantante;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Disco;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class VentanaEliminarDisco extends javax.swing.JInternalFrame {
 ControladorCantante cantanteControlador;
+private ResourceBundle mensajes;
     /**
      * Creates new form VentanaEliminarDisco
      */
@@ -152,7 +155,17 @@ ControladorCantante cantanteControlador;
             }
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
-
+public void cambiarIdioma(Locale localizacion){
+        mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
+        lblCodigo.setText(mensajes.getString("lblcodigo"));
+        lblNombre.setText(mensajes.getString("lblnombre"));
+        
+        lblAnios.setText(mensajes.getString("lblanio"));
+        btnBuscar.setText(mensajes.getString("btnbuscar"));
+        btnAceptar.setText(mensajes.getString("btnaceptar"));
+        
+        
+    }
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String nombre= txtNombre.getText();
 

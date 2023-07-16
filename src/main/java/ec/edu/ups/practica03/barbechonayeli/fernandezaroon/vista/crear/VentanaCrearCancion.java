@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class VentanaCrearCancion extends javax.swing.JInternalFrame {
 ControladorCompositor compositorControlador;
+Compositor compositor;
 private ResourceBundle mensajes;
     /**
      * Creates new form VentanaCrearCancion

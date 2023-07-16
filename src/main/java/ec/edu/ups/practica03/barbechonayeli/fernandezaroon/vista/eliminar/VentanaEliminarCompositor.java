@@ -6,6 +6,8 @@ package ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.eliminar;
 
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.controlador.ControladorCompositor;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Compositor;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class VentanaEliminarCompositor extends javax.swing.JInternalFrame {
 ControladorCompositor compositorControlador;
+private ResourceBundle mensajes;
     /**
      * Creates new form VentanaEliminarCompositor
      */
@@ -282,6 +285,20 @@ private void limpiarCampos(){
     this.txtNumeroComposiciones.setText("");
     this.txtEdad.setText("");
 }
+ public void cambiarIdioma(Locale localizacion){
+        mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
+        lblCodigo.setText(mensajes.getString("lblcodigo"));
+        lblNombre.setText(mensajes.getString("lblnombre"));
+        lblApellido.setText(mensajes.getString("lblapellido"));
+        lblNacionalidad.setText(mensajes.getString("lblnacionalidad"));
+        lblComposiciones.setText(mensajes.getString("lblcomposiciones"));
+        lblEdad.setText(mensajes.getString("lbledad"));
+        lblSalario.setText(mensajes.getString("lblsalario"));
+        btnBuscar.setText(mensajes.getString("btnbuscar"));
+        btnAceptar.setText(mensajes.getString("btnaceptar"));
+        btnCancelar.setText(mensajes.getString("btncancelar"));
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;

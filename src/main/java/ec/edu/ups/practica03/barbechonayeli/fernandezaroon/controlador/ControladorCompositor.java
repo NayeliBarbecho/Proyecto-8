@@ -31,6 +31,9 @@ public class ControladorCompositor {
         compositorDAO.create(compositor);
         
     }
+    public void agregarCancion(Cancion cancion,Compositor compositor){
+        compositor.agregarCancion(cancion);
+    }
     public void crearCancion(Cancion cancion,Compositor compositor){
         this.cancion=cancion;
         compositor.agregarCancion(cancion);

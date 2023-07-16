@@ -380,6 +380,7 @@ private void cargarDatosTabla() {
         txtNumeroConciertos.setText(cantante.getNumeroDeConciertos()+"");
         txtNumeroGiras.setText(cantante.getNumeroDeGiras()+"");
         txtNumeroSencillos.setText(cantante.getNumeroDeSencillos()+"");
+        
         txtSalario.setText(cantante.getSalario()+"");
         txtSalarioFinal.setText(cantante.calcularSalario()+"");
         

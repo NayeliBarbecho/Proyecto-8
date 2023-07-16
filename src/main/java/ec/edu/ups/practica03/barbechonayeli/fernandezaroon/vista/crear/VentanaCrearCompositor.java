@@ -66,7 +66,10 @@ public class VentanaCrearCompositor extends javax.swing.JInternalFrame {
         btnCancelar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 153, 153));
+        setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        setIconifiable(true);
+        setMaximizable(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Crear Nuevo Compositor")));
@@ -212,9 +215,10 @@ public class VentanaCrearCompositor extends javax.swing.JInternalFrame {
         int codigoUno=Integer.parseInt(codigo);
         int edadUno=Integer.parseInt(edad);
         double salarioUno=Double.parseDouble(salario);
+        
         int numeroCUno=Integer.parseInt(numeroComposiciones);
         Compositor compositor=new Compositor();
-        compositor.setCodigo(codigoUno);
+        compositor.generarCodigo(codigoUno);
         compositor.setNombre(nombre);
         compositor.setApellido(apellido);
         compositor.setNacionalidad(nacionalidad);

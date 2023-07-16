@@ -71,11 +71,11 @@ ControladorCantante cantanteControlador;
 
             },
             new String [] {
-                "Codigo", "Nombre", "Apellido", "Edad", "Nacionalidad", "Salario", "Salario Total", "Nombre Artistico", "Genero Musical", "Numero Sencillos", "Numero Conciertos", "Numero Giras"
+                "Codigo", "Nombre", "Apellido", "Edad", "Nacionalidad", "Salario", "Salario Total", "Nombre Artistico", "Genero Musical", "Numero Sencillos", "Numero Conciertos", "Numero Giras", "Salario Final"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -183,11 +183,13 @@ private void cargarDatosCantante(){
             int girasU=cantante.getNumeroDeGiras();
             int sencillosU=cantante.getNumeroDeSencillos();
             double salarioU=cantante.getSalario();
+            double salarioFinalU=cantante.calcularSalario();
+            String salarioFinal=String.valueOf(salarioFinalU);
             String codigo=String.valueOf(codigoU);
             String edad=String.valueOf(edadU);
             String salario=String.valueOf(salarioU);
             
-            Object[] rowData = {codigo,nombre,apellido,edad,nacionalidad,salario,nombreArtistico,genero,sencillosU,conciertosU,girasU};
+            Object[] rowData = {codigo,nombre,apellido,edad,nacionalidad,salario,nombreArtistico,genero,sencillosU,conciertosU,girasU,salarioFinal};
             modelo.addRow(rowData);
         }
         this.tblCantante.setModel(modelo);

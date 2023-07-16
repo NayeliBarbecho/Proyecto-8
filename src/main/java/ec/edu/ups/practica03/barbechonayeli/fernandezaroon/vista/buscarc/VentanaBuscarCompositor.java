@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class VentanaBuscarCompositor extends javax.swing.JInternalFrame {
     ControladorCompositor compositorControlador;
     ControladorCantante cantanteControlador;
+    Compositor compositor;
  private ResourceBundle mensajes;
     /**
      * Creates new form VentanaBuscarCompositor
@@ -31,6 +32,7 @@ public class VentanaBuscarCompositor extends javax.swing.JInternalFrame {
         initComponents();
         this.compositorControlador= compositorControlador;
         this.cantanteControlador=cantanteControlador;
+        this.compositor=compositor;
     }
 
     /**
@@ -277,7 +279,7 @@ public class VentanaBuscarCompositor extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -333,15 +335,34 @@ public class VentanaBuscarCompositor extends javax.swing.JInternalFrame {
             txtNumeroComposiciones.setText(compositor.getSalario()+"");
             txtSalario.setText(compositor.getNumeroDeComposiciones()+"");
             compositor.setCodigo(codigoUno);
+             this.actualizarTabla();
 
         }else{
             JOptionPane.showMessageDialog(this, "La persona con la cedula"+codigoUno+"No fue econtrada");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
-
+private void actualizarTabla(){
+        DefaultTableModel modelo = (DefaultTableModel)this.tblCancion.getModel();
+        modelo.setNumRows(0);
+        List <Cancion> listaCan = compositor.getCancionesTop100();
+        //if (listaPersonas!=null) {
+            for (Cancion listaCa : listaCan) {
+                int cod = listaCa.getCodigo();
+                String nom = listaCa.getTitulo();
+                String letra= listaCa.getLetra();
+                double duracion = listaCa.getTiempoEnMinutos();
+                Object[] rowDate = {cod,nom,letra,duracion};
+                modelo.addRow(rowDate);
+            }
+            this.tblCancion.setModel(modelo);
+        //}else{
+          //  JOptionPane.showMessageDialog(this, "No se ha ingresado ningun cantante aun");
+        //}
+    }
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         this.cargarDatosCantante();
         this.cargarDatosTablaCancion();
+        
     }//GEN-LAST:event_formInternalFrameActivated
 
 
@@ -394,7 +415,7 @@ private void cargarDatosCantante(){
  private void cargarDatosTablaCancion() {
         DefaultTableModel modelo = (DefaultTableModel) this.tblCancion.getModel();
         modelo.setNumRows(0);
-        List<Cancion> listaCancion = compositorControlador.listarCancion();
+        List<Cancion> listaCancion = compositor.getCancionesTop100();
         for (Cancion cancion : listaCancion) {
             String letra = cancion.getLetra();
             String titulo = cancion.getTitulo();

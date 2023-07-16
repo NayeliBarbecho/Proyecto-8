@@ -105,6 +105,16 @@ public abstract class Persona {
         }
         return true;
     }
+    public String generarCodigo(int c){
+        String codi="";
+        int codigo=getCodigo();
+        if(codigo>0){
+            codi+="000"+c;
+        }else
+            System.out.println("");
+        return codi;
+            
+    }
     
         
       

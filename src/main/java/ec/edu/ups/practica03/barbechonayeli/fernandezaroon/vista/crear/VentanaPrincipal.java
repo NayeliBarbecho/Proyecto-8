@@ -8,11 +8,10 @@ import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.eliminar.Ventan
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.eliminar.VentanaEliminarCompositor;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.eliminar.VentanaEliminarCantante;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.eliminar.VentanaEliminarCancion;
-import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.Buscar.VentanaBuscarDisco;
-
-import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.Buscar.VentanaBuscarCantante;
-import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.Buscar.VentanaBuscarCantante;
-import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.Buscar.VentanaBuscarCancion;
+import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.buscarc.VentanaBuscarDisco;
+import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.buscarc.VentanaBuscarCantante;
+import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.buscarc.VentanaBuscarCantante;
+import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.buscarc.VentanaBuscarCancion;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.actualizar.VentanaActualizarDisco;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.actualizar.VentanaActualizarCompositor;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.actualizar.VentanaActualizarCantante;
@@ -22,9 +21,9 @@ import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.controlador.Controlad
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.dao.CantanteDAO;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.dao.CompositorDAO;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cantante;
-import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.Buscar.VentanaBuscarCancion2;
-import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.Buscar.VentanaBuscarCompositor;
-import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.Buscar.VentanaBuscarDisco1;
+import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.buscarc.VentanaBuscarCancion2;
+import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.buscarc.VentanaBuscarCompositor;
+import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.buscarc.VentanaBuscarDisco1;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.listar.VentanaListarCancion;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.listar.VentanaListarCantante;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.listar.VentanaListarCompositor;
@@ -262,13 +261,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         desktopPane.setLayout(desktopPaneLayout);
         desktopPaneLayout.setHorizontalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopPaneLayout.createSequentialGroup()
+                .addContainerGap(190, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         desktopPaneLayout.setVerticalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopPaneLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
@@ -467,7 +469,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -6,6 +6,8 @@ package ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.eliminar;
 
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.controlador.ControladorCantante;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cantante;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class VentanaEliminarCantante extends javax.swing.JInternalFrame {
 ControladorCantante cantanteControlador;
+private ResourceBundle mensajes;
     /**
      * Creates new form VentanaEliminarCantante
      */
@@ -319,6 +322,23 @@ private void limpiarCampos(){
     this.txtNumeroGiras.setText("");
     this.txtEdad.setText("");
 }
+public void cambiarIdioma(Locale localizacion){
+        mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
+        lblCodigo.setText(mensajes.getString("lblcodigo"));
+        lblNombre.setText(mensajes.getString("lblnombre"));
+        lblApellido.setText(mensajes.getString("lblapellido"));
+        lblNacionalidad.setText(mensajes.getString("lblnacionalidad"));
+        lblNombreArtistico.setText(mensajes.getString("lblartistico"));
+        lblGeneroMusical.setText(mensajes.getString("lblgenero"));
+        lblConciertos.setText(mensajes.getString("lblconciertos"));
+        lblGiras.setText(mensajes.getString("lblgiras"));
+        lblSencillos.setText(mensajes.getString("lblsencillos"));
+        lblEdad.setText(mensajes.getString("lbledad"));
+        lblSalario.setText(mensajes.getString("lblsalario"));
+        btnBuscar.setText(mensajes.getString("btnbuscar"));
+        btnAceptar.setText(mensajes.getString("btnaceptar"));
+        btnCancelar.setText(mensajes.getString("btncancelar"));
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

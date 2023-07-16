@@ -6,6 +6,8 @@ package ec.edu.ups.practica03.barbechonayeli.fernandezaroon.vista.eliminar;
 
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.controlador.ControladorCompositor;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cancion;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class VentanaEliminarCancion extends javax.swing.JInternalFrame {
 ControladorCompositor compositorControlador;
+private ResourceBundle mensajes;
     /**
      * Creates new form VentanaEliminarCancion
      */
@@ -205,6 +208,17 @@ private void limpiarCampos(){
     this.txtTitulo.setText("");
     
 }
+public void cambiarIdioma(Locale localizacion){
+        mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
+        lblCodigo.setText(mensajes.getString("lblcodigo"));
+        
+        lblLetra.setText(mensajes.getString("lblletra"));
+        lblTitulo.setText(mensajes.getString("lbltitulo"));
+        lblTiempo.setText(mensajes.getString("lbltiempo"));
+        btnBuscar.setText(mensajes.getString("btnbuscar"));
+        btnAceptar.setText(mensajes.getString("btnaceptar"));
+        btnCancelar.setText(mensajes.getString("btncancelar"));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;

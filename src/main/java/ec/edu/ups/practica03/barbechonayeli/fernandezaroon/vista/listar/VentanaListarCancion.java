@@ -165,6 +165,7 @@ ControladorCompositor compositorControlador;
         }
         this.tblCancion.setModel(modelo);
     }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
