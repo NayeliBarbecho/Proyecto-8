@@ -8,7 +8,11 @@ import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.controlador.Controlad
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cancion;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Disco;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -16,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VentanaListarDisco extends javax.swing.JInternalFrame {
 ControladorCantante cantanteControlador;
+private ResourceBundle mensajes;
     /**
      * Creates new form VentanaListarDisco
      */
@@ -151,6 +156,19 @@ ControladorCantante cantanteControlador;
             modelo.addRow(rowData);
         }
         this.tblDiscos.setModel(modelo);
+    }
+ public void cambiarIdiomaDisco(Locale localizacion){
+        mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
+        TableColumnModel columnModel = tblDiscos.getColumnModel();
+        TableColumn columnaCodigo = columnModel.getColumn(0);
+        columnaCodigo.setHeaderValue(mensajes.getString("lblcodigo"));
+        TableColumn columnaNombre = columnModel.getColumn(1);
+        columnaNombre.setHeaderValue(mensajes.getString("lblnombre"));
+        TableColumn columnaAnio = columnModel.getColumn(2);
+        columnaAnio.setHeaderValue(mensajes.getString("lblanio"));
+        
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

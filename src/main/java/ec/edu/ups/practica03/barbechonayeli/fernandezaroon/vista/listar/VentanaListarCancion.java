@@ -8,7 +8,11 @@ import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.controlador.Controlad
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cancion;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -16,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VentanaListarCancion extends javax.swing.JInternalFrame {
 ControladorCompositor compositorControlador;
+private ResourceBundle mensajes;
     /**
      * Creates new form VentanaListarCancion
      */
@@ -141,7 +146,20 @@ ControladorCompositor compositorControlador;
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         
     }//GEN-LAST:event_formInternalFrameClosing
-
+public void cambiarIdioma(Locale localizacion){
+        mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
+        TableColumnModel columnModel = tblCancion.getColumnModel();
+        TableColumn columnaCodigo = columnModel.getColumn(0);
+        columnaCodigo.setHeaderValue(mensajes.getString("lblcodigo"));
+        TableColumn columnaNombre = columnModel.getColumn(1);
+        columnaNombre.setHeaderValue(mensajes.getString("lbltitulo"));
+        TableColumn columnaLetra = columnModel.getColumn(2);
+        columnaLetra.setHeaderValue(mensajes.getString("lblletra"));
+        TableColumn columnaTiempo = columnModel.getColumn(3);
+        columnaTiempo.setHeaderValue(mensajes.getString("lbltiempo"));
+        
+        
+    }
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
        this.cargarDatosTabla();
        
@@ -149,6 +167,7 @@ ControladorCompositor compositorControlador;
        
     }//GEN-LAST:event_formInternalFrameActivated
  private void cargarDatosTabla() {
+     
         DefaultTableModel modelo = (DefaultTableModel) this.tblCancion.getModel();
         modelo.setNumRows(0);
         List<Cancion> listaCancion = compositorControlador.listarCancion();

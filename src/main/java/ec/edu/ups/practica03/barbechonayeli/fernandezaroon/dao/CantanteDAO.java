@@ -5,12 +5,15 @@
 package ec.edu.ups.practica03.barbechonayeli.fernandezaroon.dao;
 
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.Idao.IControladorCantante;
+import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cancion;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cantante;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Disco;
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,28 +24,25 @@ import java.util.List;
  */
 public class CantanteDAO implements IControladorCantante {
     private List<Cantante> listaCantantes;
-    private String ruta;
+    private  String ruta = "C:\\Users\\LENOVO\\Music\\cantante.txt";
+    
     
 
     public CantanteDAO() {
-        File archivo= new File("compositor.txt");
+        
         listaCantantes= new ArrayList<>();
     }
-    public void escribirArchivo(Cantante cantante){
-        try {
-            ruta="compositor.txt";
-            FileOutputStream archivoEscritura= new FileOutputStream(ruta,true);
-            ObjectOutputStream escritura=new ObjectOutputStream (archivoEscritura);
-            escritura.writeObject(cantante);
-            escritura.close();
-            archivoEscritura.close();
-        } catch (Exception e) {
-            System.out.println("Error al escribir en el archivo");
+    public void crear(Cantante cantante) {
+   try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(ruta, true))) {
+            // Escribir la información del compositor
+            dos.write(cantante.getCodigo());
+            dos.writeUTF(cantante.getNombre());
+            dos.writeUTF(cantante.getApellido());
+            dos.writeInt(cantante.getEdad());
+             
+        } catch (IOException e) {
+            System.out.println("Error al crear el compositor: " + e.getMessage());
         }
-            
-        }
-    public void leerArchivo(Cantante cantante){
-        
     }
 
     

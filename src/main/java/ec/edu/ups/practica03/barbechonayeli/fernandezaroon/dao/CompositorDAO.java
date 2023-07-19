@@ -28,6 +28,18 @@ public class CompositorDAO implements IControlador {
     public void create(Compositor compositor) {
         listaCompositor.add(compositor);
     }
+    public void crear(){
+        
+    }
+    public void leer(){
+        
+    }
+    public void actualizar(){
+        
+    }
+    public void eliminar(){
+        
+    }
 
     
 

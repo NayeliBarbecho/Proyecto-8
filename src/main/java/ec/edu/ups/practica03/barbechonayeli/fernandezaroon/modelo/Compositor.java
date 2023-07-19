@@ -92,7 +92,10 @@ return hash;
     }
     
     public void agregarCancion(Cancion cancion) {
-        cancionesTop100.add(cancion);
+        for (int i = 1; i < 10; i++) {
+            cancionesTop100.add(cancion);
+        }
+        
         
     }
     

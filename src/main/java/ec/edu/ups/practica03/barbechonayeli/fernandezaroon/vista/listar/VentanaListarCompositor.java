@@ -10,7 +10,11 @@ import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cancion;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cantante;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Compositor;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -19,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class VentanaListarCompositor extends javax.swing.JInternalFrame {
 ControladorCompositor compositorControlador;
 ControladorCantante cantanteControlador;
+private ResourceBundle mensajes;
     /**
      * Creates new form VentanaListarCompositor
      */
@@ -127,11 +132,11 @@ ControladorCantante cantanteControlador;
 
             },
             new String [] {
-                "Codigo", "Nombre", "Apellido", "Edad", "Nacionalidad", "Salario", "Salario Total", "Nombre Artistico", "Genero Musical", "Numero Sencillos", "Numero Conciertos", "Numero Giras", "Salario Final"
+                "Codigo", "Nombre", "Apellido", "Edad", "Nacionalidad", "Salario", "Nombre Artistico", "Genero Musical", "Numero Sencillos", "Numero Conciertos", "Numero Giras", "Salario Final"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -194,14 +199,77 @@ ControladorCantante cantanteControlador;
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+public void cambiarIdiomaCancion(Locale localizacion){
+        mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
+        TableColumnModel columnModel = tblCancion.getColumnModel();
+        TableColumn columnaCodigo = columnModel.getColumn(0);
+        columnaCodigo.setHeaderValue(mensajes.getString("lblcodigo"));
+        TableColumn columnaNombre = columnModel.getColumn(1);
+        columnaNombre.setHeaderValue(mensajes.getString("lbltitulo"));
+        TableColumn columnaLetra = columnModel.getColumn(2);
+        columnaLetra.setHeaderValue(mensajes.getString("lblletra"));
+        TableColumn columnaTiempo = columnModel.getColumn(3);
+        columnaTiempo.setHeaderValue(mensajes.getString("lbltiempo"));
+        
+        
+    }
+public void cambiarIdiomaCompositor(Locale localizacion){
+        mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
+       TableColumnModel columnModel = tblCompositor.getColumnModel();
+        TableColumn columnaCodigo = columnModel.getColumn(0);
+        columnaCodigo.setHeaderValue(mensajes.getString("lblcodigo"));
+        TableColumn columnaNombre = columnModel.getColumn(1);
+        columnaNombre.setHeaderValue(mensajes.getString("lblnombre"));
+        TableColumn columnaApellido = columnModel.getColumn(2);
+        columnaApellido.setHeaderValue(mensajes.getString("lblapellido"));
+        TableColumn columnaEdad = columnModel.getColumn(3);
+        columnaEdad.setHeaderValue(mensajes.getString("lbledad"));
+        TableColumn columnaNacionalidad = columnModel.getColumn(4);
+        columnaNacionalidad.setHeaderValue(mensajes.getString("lblnacionalidad"));
+        TableColumn columnaSalario = columnModel.getColumn(5);
+        columnaSalario.setHeaderValue(mensajes.getString("lblsalario"));
+        TableColumn columnaSalarioF = columnModel.getColumn(6);
+        columnaSalarioF.setHeaderValue(mensajes.getString("lblsalario"));
+        TableColumn columnaComposiciones = columnModel.getColumn(7);
+        columnaComposiciones.setHeaderValue(mensajes.getString("lblcomposiciones"));
+        
+        
+    }
+public void cambiarIdiomaCliente(Locale localizacion){
+        mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
+        TableColumnModel columnModel = tblCantante.getColumnModel();
+        TableColumn columnaCodigo = columnModel.getColumn(0);
+        columnaCodigo.setHeaderValue(mensajes.getString("lblcodigo"));
+        TableColumn columnaNombre = columnModel.getColumn(1);
+        columnaNombre.setHeaderValue(mensajes.getString("lblnombre"));
+        TableColumn columnaApellido = columnModel.getColumn(2);
+        columnaApellido.setHeaderValue(mensajes.getString("lblapellido"));
+        TableColumn columnaEdad = columnModel.getColumn(3);
+        columnaEdad.setHeaderValue(mensajes.getString("lbledad"));
+        TableColumn columnaNacionalidad = columnModel.getColumn(4);
+        columnaNacionalidad.setHeaderValue(mensajes.getString("lblnacionalidad"));
+        TableColumn columnaSalario = columnModel.getColumn(5);
+        columnaSalario.setHeaderValue(mensajes.getString("lblsalario"));
+        
+        TableColumn columnaArtistico = columnModel.getColumn(6);
+        columnaArtistico.setHeaderValue(mensajes.getString("lblartistico"));
+        TableColumn columnaGenero = columnModel.getColumn(7);
+        columnaGenero.setHeaderValue(mensajes.getString("lblgenero"));
+        TableColumn columnaSencillos = columnModel.getColumn(8);
+        columnaSencillos.setHeaderValue(mensajes.getString("lblsencillos"));
+        TableColumn columnaConcierto = columnModel.getColumn(9);
+        columnaConcierto.setHeaderValue(mensajes.getString("lblconciertos"));
+        TableColumn columnaGiras = columnModel.getColumn(10);
+        columnaGiras.setHeaderValue(mensajes.getString("lblgiras"));
+        TableColumn columnaSalarioF = columnModel.getColumn(11);
+        columnaSalarioF.setHeaderValue(mensajes.getString("lblsalario"));
+    }
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.setEnabled(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -209,6 +277,8 @@ ControladorCantante cantanteControlador;
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
        this.cargarDatosCompositor();
        this.cargarDatosTablaCancion();
+       this.cambiarIdiomaCancion(Locale.ENGLISH);
+               
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void tblCompositorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCompositorMouseClicked
@@ -243,11 +313,11 @@ private void cargarDatosCompositor(){
             double salarioU=compositor.getSalario();
             double salarioFinalU=compositor.calcularSalario();
             String codigo=String.valueOf(codigoU);
-            String salarioFinal=String.valueOf(salarioFinalU);
+            
             String edad=String.valueOf(edadU);
             String composiciones=String.valueOf(composicionesU);
             String salario=String.valueOf(salarioU);
-            
+            String salarioFinal=String.valueOf(salarioFinalU);
             Object[] rowData = {codigo,nombre,apellido,edad,nacionalidad,salario,composiciones,salarioFinal};
             modelo.addRow(rowData);
         }

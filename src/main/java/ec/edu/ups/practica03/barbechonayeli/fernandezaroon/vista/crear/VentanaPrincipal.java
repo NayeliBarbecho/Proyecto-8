@@ -39,8 +39,9 @@ import javax.swing.JPanel;
  * @author LENOVO
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
+
     //Ventana Crear
-     private VentanaCrearCompositor ventanaCrearCompositor;
+    private VentanaCrearCompositor ventanaCrearCompositor;
     private VentanaCrearCantante ventanaCrearCantante;
     private VentanaCrearDisco ventanaCrearDisco;
     private VentanaCrearCancion ventanaCrearCancion;
@@ -79,27 +80,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     //Internacionalizacion
     private Locale localizacion;
     private ResourceBundle mensajes;
-   
-    
-   
-    
 
     /**
      * Creates new form VentanaPrincipal
      */
     public VentanaPrincipal() {
         initComponents();
-        cantanteDAO= new CantanteDAO();
-        compositorDAO= new CompositorDAO();
-        cantanteControlador= new ControladorCantante(cantanteDAO);
-        compositorControlador= new ControladorCompositor(compositorDAO);
-        
-        localizacion = Locale.getDefault();                
+        cantanteDAO = new CantanteDAO();
+        compositorDAO = new CompositorDAO();
+        cantanteControlador = new ControladorCantante(cantanteDAO);
+        compositorControlador = new ControladorCompositor(compositorDAO);
+
+        localizacion = Locale.getDefault();
         cambiarIdioma();
-        
+
     }
     
- private void cambiarIdioma(){
+
+    private void cambiarIdioma() {
         mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
         menuCompositor.setText(mensajes.getString("menu.compositor"));
         menuCantante.setText(mensajes.getString("menu.cantante"));
@@ -120,56 +118,75 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuItemEliminarCantante.setText(mensajes.getString("menu.eliminar"));
         menuItemEliminarCompositor.setText(mensajes.getString("menu.eliminar"));
         menuItemEliminarDisco.setText(mensajes.getString("menu.eliminar"));
+        menuItemListarCancion.setText(mensajes.getString("menu.listar"));
+        menuItemListarCantante.setText(mensajes.getString("menu.listar"));
+        menuItemListarCompositor.setText(mensajes.getString("menu.listar"));
+        menuItemListarDisco.setText(mensajes.getString("menu.listar"));
+
+
 
         menuIdiomas.setText(mensajes.getString("menu.idiomas"));
-        
-        if(ventanaCrearCompositor != null){
+
+        if (ventanaCrearCompositor != null) {
             ventanaCrearCompositor.cambiarIdioma(localizacion);
         }
-        if(ventanaCrearCantante != null){
+        if (ventanaCrearCantante != null) {
             ventanaCrearCantante.cambiarIdioma(localizacion);
         }
-        if(ventanaCrearDisco != null){
+        if (ventanaCrearDisco != null) {
             ventanaCrearDisco.cambiarIdioma(localizacion);
         }
-        if(ventanaCrearCancion != null){
+        if (ventanaCrearCancion != null) {
             ventanaCrearCancion.cambiarIdioma(localizacion);
         }
-        if(ventanaBuscarCompositor != null){
+        if (ventanaBuscarCompositor != null) {
             ventanaBuscarCompositor.cambiarIdioma(localizacion);
         }
-        if(ventanaBuscarCantante != null){
+        if (ventanaBuscarCantante != null) {
             ventanaBuscarCantante.cambiarIdioma(localizacion);
         }
-         if(ventanaBuscarCancion != null){
+        if (ventanaBuscarCancion != null) {
             ventanaBuscarCancion.cambiarIdioma(localizacion);
         }
-          if(ventanaBuscarCancion2 != null){
+        if (ventanaBuscarCancion2 != null) {
             ventanaBuscarCancion2.cambiarIdioma(localizacion);
         }
-           if(ventanaBuscarDisco != null){
+        if (ventanaBuscarDisco != null) {
             ventanaBuscarDisco.cambiarIdioma(localizacion);
         }
-           if(ventanaBuscarDisco1 != null){
+        if (ventanaBuscarDisco1 != null) {
             ventanaBuscarDisco1.cambiarIdioma(localizacion);
-           }
-            if(ventanaActualizarCancionl != null){
+        }
+        if (ventanaActualizarCancionl != null) {
             ventanaActualizarCancionl.cambiarIdioma(localizacion);
-           }
-            if(ventanaActualizarCantante != null){
+        }
+        if (ventanaActualizarCantante != null) {
             ventanaActualizarCantante.cambiarIdioma(localizacion);
-            }
-            if(ventanaActualizarCompositor != null){
+        }
+        if (ventanaActualizarCompositor != null) {
             ventanaActualizarCompositor.cambiarIdioma(localizacion);
-            }
-            if(ventanaActualizarDisco != null){
+        }
+        if (ventanaActualizarDisco != null) {
             ventanaActualizarDisco.cambiarIdioma(localizacion);
-           
-        
- }
- }
-    
+        }
+        if (ventanaListarCancion != null) {
+            ventanaListarCancion.cambiarIdioma(localizacion);
+        }
+        if (ventanaListarCompositor != null) {
+            ventanaListarCompositor.cambiarIdiomaCancion(localizacion);
+            ventanaListarCompositor.cambiarIdiomaCliente(localizacion);
+            ventanaListarCompositor.cambiarIdiomaCompositor(localizacion);
+        }
+        if (ventanaListarCantante != null) {
 
+            ventanaListarCantante.cambiarIdiomaCliente(localizacion);
+            ventanaListarCantante.cambiarIdiomaDisco(localizacion);
+        }
+        if (ventanaListarDisco != null) {
+            ventanaListarDisco.cambiarIdiomaDisco(localizacion);
+        }
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -307,6 +324,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuCompositor.add(menuItemBuscarCompositor);
 
         menuItemActualizarCompositor.setText("Actualizar");
+        menuItemActualizarCompositor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemActualizarCompositorActionPerformed(evt);
+            }
+        });
         menuCompositor.add(menuItemActualizarCompositor);
 
         menuItemEliminarCompositor.setText("Eliminar");
@@ -318,6 +340,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuCompositor.add(menuItemEliminarCompositor);
 
         menuItemListarCompositor.setText("Listar");
+        menuItemListarCompositor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemListarCompositorActionPerformed(evt);
+            }
+        });
         menuCompositor.add(menuItemListarCompositor);
 
         jMenuBar1.add(menuCompositor);
@@ -349,9 +376,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuCantante.add(menuItemActualizarCantante);
 
         menuItemEliminarCantante.setText("Eliminar");
+        menuItemEliminarCantante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEliminarCantanteActionPerformed(evt);
+            }
+        });
         menuCantante.add(menuItemEliminarCantante);
 
         menuItemListarCantante.setText("Listar");
+        menuItemListarCantante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemListarCantanteActionPerformed(evt);
+            }
+        });
         menuCantante.add(menuItemListarCantante);
 
         jMenuBar1.add(menuCantante);
@@ -482,19 +519,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemCrearCompositorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCrearCompositorActionPerformed
-         if (ventanaCrearCompositor == null) {
+        if (ventanaCrearCompositor == null) {
             ventanaCrearCompositor = new VentanaCrearCompositor(compositorControlador);
             desktopPane.add(ventanaCrearCompositor);
         }
-         ventanaCrearCompositor.cambiarIdioma(localizacion);
+        ventanaCrearCompositor.cambiarIdioma(localizacion);
         ventanaCrearCompositor.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_menuItemCrearCompositorActionPerformed
 
     private void menuItemBuscarCompositorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemBuscarCompositorActionPerformed
-         if (ventanaBuscarCompositor == null) {
-            ventanaBuscarCompositor = new VentanaBuscarCompositor(compositorControlador,cantanteControlador);
+        if (ventanaBuscarCompositor == null) {
+            ventanaBuscarCompositor = new VentanaBuscarCompositor(compositorControlador, cantanteControlador);
             desktopPane.add(ventanaBuscarCompositor);
         }
         ventanaCrearCompositor.cambiarIdioma(localizacion);
@@ -502,11 +539,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemBuscarCompositorActionPerformed
 
     private void menuItemEliminarCompositorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEliminarCompositorActionPerformed
-        
+        if (ventanaEliminarCompositor == null) {
+            ventanaEliminarCompositor = new VentanaEliminarCompositor(compositorControlador);
+            desktopPane.add(ventanaEliminarCompositor);
+        }
+        ventanaEliminarCompositor.cambiarIdioma(localizacion);
+        ventanaEliminarCompositor.setVisible(true);
     }//GEN-LAST:event_menuItemEliminarCompositorActionPerformed
 
     private void menuItemCrearCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCrearCantanteActionPerformed
-         if (ventanaCrearCantante == null) {
+        if (ventanaCrearCantante == null) {
             ventanaCrearCantante = new VentanaCrearCantante(cantanteControlador);
             desktopPane.add(ventanaCrearCantante);
         }
@@ -515,7 +557,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemCrearCantanteActionPerformed
 
     private void menuItemBuscarCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemBuscarCantanteActionPerformed
-         if (ventanaBuscarCantante == null) {
+        if (ventanaBuscarCantante == null) {
             ventanaBuscarCantante = new VentanaBuscarCantante(cantanteControlador);
             desktopPane.add(ventanaBuscarCantante);
         }
@@ -524,7 +566,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemBuscarCantanteActionPerformed
 
     private void menuItemActualizarCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemActualizarCantanteActionPerformed
-        if (ventanaActualizarCantante== null) {
+        if (ventanaActualizarCantante == null) {
             ventanaActualizarCantante = new VentanaActualizarCantante(cantanteControlador);
             desktopPane.add(ventanaActualizarCantante);
         }
@@ -533,7 +575,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemActualizarCantanteActionPerformed
 
     private void menuItemCrearDiscoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCrearDiscoActionPerformed
-        if (ventanaCrearDisco== null) {
+        if (ventanaCrearDisco == null) {
             ventanaCrearDisco = new VentanaCrearDisco(cantanteControlador);
             desktopPane.add(ventanaCrearDisco);
         }
@@ -542,7 +584,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemCrearDiscoActionPerformed
 
     private void menuItemCrearCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCrearCancionActionPerformed
-        if (ventanaCrearCancion== null) {
+        if (ventanaCrearCancion == null) {
             ventanaCrearCancion = new VentanaCrearCancion(compositorControlador);
             desktopPane.add(ventanaCrearCancion);
         }
@@ -551,29 +593,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemCrearCancionActionPerformed
 
     private void menuItemBuscarDiscoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemBuscarDiscoActionPerformed
-       if (ventanaBuscarDisco== null) {
+        if (ventanaBuscarDisco == null) {
             ventanaBuscarDisco = new VentanaBuscarDisco(cantanteControlador);
             desktopPane.add(ventanaBuscarDisco);
+            ventanaBuscarDisco.cambiarIdioma(localizacion);
         }
-        
+
         ventanaBuscarDisco.setVisible(true);
     }//GEN-LAST:event_menuItemBuscarDiscoActionPerformed
 
     private void menuItemListarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemListarCancionActionPerformed
-         if (ventanaListarCancion== null) {
+        if (ventanaListarCancion == null) {
             ventanaListarCancion = new VentanaListarCancion(compositorControlador);
             desktopPane.add(ventanaListarCancion);
         }
-        
+        ventanaListarCancion.cambiarIdioma(localizacion);
         ventanaListarCancion.setVisible(true);
     }//GEN-LAST:event_menuItemListarCancionActionPerformed
 
     private void menuItemListarDiscoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemListarDiscoActionPerformed
-        if (ventanaListarDisco== null) {
+        if (ventanaListarDisco == null) {
             ventanaListarDisco = new VentanaListarDisco(cantanteControlador);
             desktopPane.add(ventanaListarDisco);
         }
-        
+
         ventanaListarDisco.setVisible(true);
     }//GEN-LAST:event_menuItemListarDiscoActionPerformed
 
@@ -583,7 +626,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemInglesActionPerformed
 
     private void menuItemEspañolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEspañolActionPerformed
-localizacion = new Locale("es", "EC");
+        localizacion = new Locale("es", "EC");
         cambiarIdioma();
     }//GEN-LAST:event_menuItemEspañolActionPerformed
 
@@ -593,7 +636,7 @@ localizacion = new Locale("es", "EC");
     }//GEN-LAST:event_menuItemFrancesActionPerformed
 
     private void menuItemBuscarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemBuscarCancionActionPerformed
-        if (ventanaBuscarCancion== null) {
+        if (ventanaBuscarCancion == null) {
             ventanaBuscarCancion = new VentanaBuscarCancion(compositorControlador);
             desktopPane.add(ventanaBuscarCancion);
         }
@@ -602,13 +645,52 @@ localizacion = new Locale("es", "EC");
     }//GEN-LAST:event_menuItemBuscarCancionActionPerformed
 
     private void menuItemBuscarCancionCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemBuscarCancionCodigoActionPerformed
-        if (ventanaBuscarCancion2== null) {
+        if (ventanaBuscarCancion2 == null) {
             ventanaBuscarCancion2 = new VentanaBuscarCancion2(compositorControlador);
             desktopPane.add(ventanaBuscarCancion2);
         }
         ventanaBuscarCancion2.cambiarIdioma(localizacion);
         ventanaBuscarCancion2.setVisible(true);
     }//GEN-LAST:event_menuItemBuscarCancionCodigoActionPerformed
+
+    private void menuItemActualizarCompositorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemActualizarCompositorActionPerformed
+        if (ventanaActualizarCompositor == null) {
+            ventanaActualizarCompositor = new VentanaActualizarCompositor(compositorControlador);
+            desktopPane.add(ventanaActualizarCompositor);
+        }
+        ventanaActualizarCompositor.cambiarIdioma(localizacion);
+        ventanaActualizarCompositor.setVisible(true);
+    }//GEN-LAST:event_menuItemActualizarCompositorActionPerformed
+
+    private void menuItemListarCompositorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemListarCompositorActionPerformed
+        if (ventanaListarCompositor == null) {
+            ventanaListarCompositor = new VentanaListarCompositor(compositorControlador);
+            desktopPane.add(ventanaListarCompositor);
+        }
+        ventanaListarCompositor.cambiarIdiomaCancion(localizacion);
+        ventanaListarCompositor.cambiarIdiomaCliente(localizacion);
+        ventanaListarCompositor.cambiarIdiomaCompositor(localizacion);
+        ventanaListarCompositor.setVisible(true);
+    }//GEN-LAST:event_menuItemListarCompositorActionPerformed
+
+    private void menuItemEliminarCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEliminarCantanteActionPerformed
+        if (ventanaEliminarCantante == null) {
+            ventanaEliminarCantante = new VentanaEliminarCantante(cantanteControlador);
+            desktopPane.add(ventanaEliminarCantante);
+        }
+        ventanaEliminarCantante.cambiarIdioma(localizacion);
+        ventanaEliminarCantante.setVisible(true);
+    }//GEN-LAST:event_menuItemEliminarCantanteActionPerformed
+
+    private void menuItemListarCantanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemListarCantanteActionPerformed
+        if (ventanaListarCantante == null) {
+            ventanaListarCantante = new VentanaListarCantante(cantanteControlador);
+            desktopPane.add(ventanaListarCantante);
+        }
+        ventanaListarCantante.cambiarIdiomaDisco(localizacion);
+        ventanaListarCantante.cambiarIdiomaCliente(localizacion);
+        ventanaListarCantante.setVisible(true);
+    }//GEN-LAST:event_menuItemListarCantanteActionPerformed
 
     /**
      * @param args the command line arguments

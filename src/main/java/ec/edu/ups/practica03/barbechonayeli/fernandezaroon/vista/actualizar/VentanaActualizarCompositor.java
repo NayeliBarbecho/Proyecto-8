@@ -65,11 +65,11 @@ public class VentanaActualizarCompositor extends javax.swing.JInternalFrame {
         txtEdad2 = new javax.swing.JTextField();
         txtApellido2 = new javax.swing.JTextField();
         txtNacionalidad2 = new javax.swing.JTextField();
-        txtSalario2 = new javax.swing.JTextField();
         txtNumeroComposiciones2 = new javax.swing.JTextField();
         btnBuscar2 = new javax.swing.JButton();
         btnCancelar2 = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
+        spiComposiciones = new javax.swing.JSpinner();
 
         jInternalFrame1.setClosable(true);
         jInternalFrame1.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -244,8 +244,6 @@ public class VentanaActualizarCompositor extends javax.swing.JInternalFrame {
 
         txtNacionalidad2.setEditable(false);
 
-        txtSalario2.setEditable(false);
-
         txtNumeroComposiciones2.setEditable(false);
 
         btnBuscar2.setText("Buscar");
@@ -269,6 +267,8 @@ public class VentanaActualizarCompositor extends javax.swing.JInternalFrame {
             }
         });
 
+        spiComposiciones.setModel(new javax.swing.SpinnerNumberModel(0, 0, 20, 1));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -276,14 +276,6 @@ public class VentanaActualizarCompositor extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(71, 71, 71)
-                        .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblSalario)
-                        .addGap(156, 156, 156)
-                        .addComponent(txtNumeroComposiciones2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNombre)
@@ -294,28 +286,32 @@ public class VentanaActualizarCompositor extends javax.swing.JInternalFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(txtApellido2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(lblEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtEdad2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(txtNacionalidad2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lblComposiciones))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(61, 61, 61)
-                                        .addComponent(btnAceptar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnCancelar2)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtSalario2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(58, 58, 58)
+                                .addComponent(lblEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNacionalidad2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(lblComposiciones))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGap(61, 61, 61)
+                                    .addComponent(btnAceptar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnCancelar2)))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(71, 71, 71)
+                        .addComponent(lblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblSalario)))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(spiComposiciones, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                    .addComponent(txtNumeroComposiciones2)
+                    .addComponent(txtEdad2))
+                .addGap(11, 11, 11)
                 .addComponent(btnBuscar2)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,7 +328,7 @@ public class VentanaActualizarCompositor extends javax.swing.JInternalFrame {
                     .addComponent(lblNombre)
                     .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblComposiciones, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSalario2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spiComposiciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtApellido2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -357,9 +353,9 @@ public class VentanaActualizarCompositor extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGap(0, 30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,19 +445,19 @@ public void cambiarIdioma(Locale localizacion){
         String nombre=txtNombre2.getText();
         String apellido=txtApellido2.getText();
         String nacionalidad= txtNacionalidad2.getText();
-        String salario=txtSalario2.getText();
+        
         String numeroComposiciones= txtNumeroComposiciones2.getText();
         String edad=txtEdad2.getText();
         int codigoUno=Integer.parseInt(codigo);
         int edadUno=Integer.parseInt(edad);
-        double salarioUno=Double.parseDouble(salario);
+        
         int numeroCUno=Integer.parseInt(numeroComposiciones);
         Compositor compositor=new Compositor();
         compositor.setCodigo(codigoUno);
         compositor.setNombre(nombre);
         compositor.setApellido(apellido);
         compositor.setNacionalidad(nacionalidad);
-        compositor.setSalario(salarioUno);
+        compositor.setSalario(Integer.parseInt(this.spiComposiciones.getValue().toString()));
         compositor.setEdad(edadUno);
         compositor.setNumeroDeComposiciones(numeroCUno);
         if(compositorControlador.actualizar(compositor)){
@@ -478,7 +474,7 @@ private void cambiarEstadoCampos(boolean estado){
         this.txtApellido2.setEnabled(estado);
         this.txtNacionalidad2.setEnabled(estado);
         this.txtNumeroComposiciones2.setEnabled(estado);
-        this.txtSalario2.setEnabled(estado);
+        this.spiComposiciones.setEnabled(estado);
         this.txtEdad2.setEnabled(estado);
     }
 private void limpiarCampos(){
@@ -487,7 +483,7 @@ private void limpiarCampos(){
     this.txtNombre2.setText("");
     this.txtApellido2.setText("");
     this.txtNacionalidad2.setText("");
-    this.txtSalario2.setText("");
+    this.spiComposiciones.setValue(0);
     this.txtNumeroComposiciones2.setText("");
     this.txtEdad2.setText("");
 }
@@ -516,6 +512,7 @@ private void limpiarCampos(){
     private javax.swing.JLabel lblNacionalidad;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblSalario;
+    private javax.swing.JSpinner spiComposiciones;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtApellido2;
     private javax.swing.JTextField txtCodigo;
@@ -528,6 +525,5 @@ private void limpiarCampos(){
     private javax.swing.JTextField txtNumeroComposiciones;
     private javax.swing.JTextField txtNumeroComposiciones2;
     private javax.swing.JTextField txtSalario;
-    private javax.swing.JTextField txtSalario2;
     // End of variables declaration//GEN-END:variables
 }
