@@ -70,7 +70,7 @@ public class CompositorDAO implements IControlador {
 
             archivo.writeInt(compositor.getNumeroDeComposiciones());
 
-            //149
+            //150
             for (int i = 0; i < 10; i++) {
                 archivo.writeInt(0);
                 archivo.writeUTF(this.rellenarCadena("", 15));
@@ -87,7 +87,7 @@ public class CompositorDAO implements IControlador {
     public Compositor read(int codigo) {
         try {
             archivo.seek(0);
-            for (int i = 0; i < this.obtenerTamañoArchivo(); i += 4892) {
+            for (int i = 0; i < this.obtenerTamañoArchivo(); i += 4900) {
                 archivo.seek(i);
                 if (archivo.readInt() == codigo) {
                     archivo.seek(i);
@@ -152,7 +152,7 @@ public class CompositorDAO implements IControlador {
     public void delete(Compositor compositor) {
         try {
             archivo.seek(0);
-            for (int i = 0; i < this.obtenerTamañoArchivo(); i += 4982) {
+            for (int i = 0; i < this.obtenerTamañoArchivo(); i += 4900) {
                 archivo.seek(i);
                 if (archivo.readInt() == compositor.getCodigo()) {
                     archivo.seek(i);
@@ -194,7 +194,7 @@ public class CompositorDAO implements IControlador {
         try {
             archivo.seek(0);
             List<Compositor> lista = new ArrayList<>();
-            for (int i = 0; i < this.obtenerTamañoArchivo(); i += 4982) {
+            for (int i = 0; i < this.obtenerTamañoArchivo(); i += 4900) {
 
                 archivo.seek(i);
                 int cod = archivo.readInt();
@@ -234,7 +234,7 @@ public class CompositorDAO implements IControlador {
     public void update(Compositor compositor) {
         try {
             archivo.seek(0);
-            for (int i = 0; i < this.obtenerTamañoArchivo(); i += 4982) {
+            for (int i = 0; i < this.obtenerTamañoArchivo(); i += 4900) {
                 archivo.seek(i);
                 if (archivo.readInt() == compositor.getCodigo()) {
                     archivo.seek(i);
