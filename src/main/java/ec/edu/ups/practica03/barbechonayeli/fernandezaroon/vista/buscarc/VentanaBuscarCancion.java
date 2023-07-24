@@ -158,8 +158,8 @@ private ResourceBundle mensajes;
        
        String letra=txtLetra.getText();
        
-        
-         Cancion cancion = compositorControlador.buscarCancionPorTitulo(titulo);
+        int codigoUno=Integer.parseInt(codigo);
+         Cancion cancion = compositorControlador.buscarCancionPorTitulo(codigoUno);
          
         if (cancion != null) { 
         txtCodigo.setText(cancion.getCodigo()+"");

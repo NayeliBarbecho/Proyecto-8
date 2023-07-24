@@ -23,7 +23,7 @@ public interface  IControlador {
     public void  create(Compositor compositor );
     public void update(Compositor compositor);
     public abstract Compositor read(int codigo);
-    public void delete(int codigo);
+    public void delete(Compositor compositor);
     public Cancion  buscarPorTitulo(String titulo);
     public List<Compositor> list();
    

@@ -11,9 +11,11 @@ import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cantante;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Compositor;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Disco;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -439,31 +441,17 @@ Compositor compositor = compositorControlador.buscar(codigoUno);
         
 }
 private void cargarDatosCantante(){
-     DefaultTableModel modelo = (DefaultTableModel) this.tblCantante.getModel();
-        modelo.setNumRows(0);
-        List<Cantante> listaCantante = cantanteControlador.listar();
-        for (Cantante cantante: listaCantante) {
-            String nombre = cantante.getNombre();
-            String nombreArtistico = cantante.getNombreArtistico();
+     DefaultComboBoxModel<String> modelo = (DefaultComboBoxModel) this.tblCantante.getModel();
+        modelo.removeAllElements();
 
-            String apellido = cantante.getApellido();
-            String nacionalidad = cantante.getNacionalidad();
-            String genero = cantante.getGeneroMusica();
-
-            int codigoU=cantante.getCodigo();
-            int edadU=cantante.getEdad();
-            int conciertosU=cantante.getNumeroDeConciertos();
-            int girasU=cantante.getNumeroDeGiras();
-            int sencillosU=cantante.getNumeroDeSencillos();
-            double salarioU=cantante.getSalario();
-            String codigo=String.valueOf(codigoU);
-            String edad=String.valueOf(edadU);
-            String salario=String.valueOf(salarioU);
-            
-            Object[] rowData = {codigo,nombre,apellido,edad,nacionalidad,salario,nombreArtistico,genero,sencillosU,conciertosU,girasU};
-            modelo.addRow(rowData);
+        List<Cantante> listaCantantes = compositor.list();
+        if (!listaCantantes.isEmpty()) {
+            for (Cantante cantante : listaCantantes) {
+                modelo.addElement(cantante.getNombreArtistico());
+            }
+        } else {
+            modelo.addElement("No tiene cantantes");
         }
-        this.tblCantante.setModel(modelo);
 }
  private void cargarDatosTablaCancion() {
         DefaultTableModel modelo = (DefaultTableModel) this.tblCancion.getModel();

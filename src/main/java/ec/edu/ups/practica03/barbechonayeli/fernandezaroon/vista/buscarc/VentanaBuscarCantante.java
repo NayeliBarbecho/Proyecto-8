@@ -15,6 +15,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,12 +26,22 @@ import javax.swing.table.DefaultTableModel;
 public class VentanaBuscarCantante extends javax.swing.JInternalFrame {
 ControladorCantante cantanteControlador;
  private ResourceBundle mensajes;
+ private DefaultTableModel tbldisco;
     /**
      * Creates new form VentanaBuscarCompositor
      */
     public VentanaBuscarCantante(ControladorCantante cantanteControlador) {
         initComponents();
         this.cantanteControlador=cantanteControlador;
+        tbldisco=(DefaultTableModel) tblDiscos.getModel();
+        this.tblDiscos.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        
+        
+        });
     }
 
     /**
@@ -66,10 +78,10 @@ ControladorCantante cantanteControlador;
         txtNumeroConciertos = new javax.swing.JTextField();
         txtNumeroGiras = new javax.swing.JTextField();
         lblSencillos = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblDiscos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txtSalarioFinal = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblDiscos = new javax.swing.JTable();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -158,6 +170,15 @@ ControladorCantante cantanteControlador;
 
         lblSencillos.setText("Numero de Sencillos:");
 
+        jLabel1.setText("Salario Final:");
+
+        txtSalarioFinal.setEditable(false);
+        txtSalarioFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSalarioFinalActionPerformed(evt);
+            }
+        });
+
         tblDiscos.setBackground(new java.awt.Color(204, 204, 255));
         tblDiscos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,15 +197,6 @@ ControladorCantante cantanteControlador;
             }
         });
         jScrollPane2.setViewportView(tblDiscos);
-
-        jLabel1.setText("Salario Final:");
-
-        txtSalarioFinal.setEditable(false);
-        txtSalarioFinal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSalarioFinalActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -247,10 +259,9 @@ ControladorCantante cantanteControlador;
                             .addComponent(btnBuscar)
                             .addComponent(btnCancelar))
                         .addGap(39, 39, 39))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
+                .addComponent(jScrollPane2))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,9 +310,9 @@ ControladorCantante cantanteControlador;
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(txtSalarioFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -318,7 +329,7 @@ ControladorCantante cantanteControlador;
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         pack();
@@ -385,6 +396,10 @@ private void cargarDatosTabla() {
         txtSalarioFinal.setText(cantante.calcularSalario()+"");
         
         cantante.setCodigo(codigoUno);
+        
+        for (Disco d :cantante.listarDisco()){
+            System.out.println(d.getCodigo()+d.getAnioDeLanzamiento()+d.getNombreDisco());
+        }
         
         }else{
             JOptionPane.showMessageDialog(this, "La persona con la cedula"+codigoUno+"No fue econtrada");

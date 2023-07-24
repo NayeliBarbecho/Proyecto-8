@@ -4,6 +4,9 @@
  */
 package ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,10 +24,24 @@ public class Cantante extends Persona {
     private int numeroDeGiras;
     private ArrayList<Disco> discografia;
     private Disco disco;
-//constructor con el arreglo de discografia
+    private RandomAccessFile archivo;
+    private String ruta;
 
+//constructor con el arreglo de discografia
     public Cantante() {
+        ruta = "src/main/resources/archivos/cantante2.data";
+        archivo = crearArchivo();
+
         this.discografia = new ArrayList<>();
+    }
+
+    private RandomAccessFile crearArchivo() {
+        try {
+            return new RandomAccessFile("src/main/resources/archivos/cantante.data", "rw");
+        } catch (FileNotFoundException e) {
+            return null;
+        }
+
     }
 
     public Cantante(String nombreArtistico, String generoMusica, int numeroDeSencillos, int numeroDeConciertos, int numeroDeGiras, int codigo, String nombre, String apellido, int edad, String nacionalidad, double salario) {
@@ -36,9 +53,6 @@ public class Cantante extends Persona {
         this.numeroDeGiras = numeroDeGiras;
         discografia = new ArrayList();
     }
-
-    
-    
 
     public String getNombreArtistico() {
         return nombreArtistico;
@@ -133,51 +147,125 @@ public class Cantante extends Persona {
 
     }
 
-    public void agregarDisco(Disco disco) {
-        
-           discografia.add(disco);
-        System.out.println(discografia);
-        
-    }
-    
+    public void agregarDisco(Disco discos) {
 
-    
-     
+        discografia.add(discos);
 
-   public void actualizarDisco(Disco disco){
-       for(int i=0;i<discografia.size();i++){
-            Disco discoGuardado =discografia.get(i);
-            if(discoGuardado.getCodigo()==(disco.getCodigo())){
-                discografia.set(i, discoGuardado);
-                break;
-            }
-        }
-   }
-    public void eliminarDisco(int codigo){
-         for(int i=0;i<discografia.size();i++){
-            Disco discoGuardado=discografia.get(i);
-            if(discoGuardado.getCodigo()==(codigo)){
-                discografia.remove(i);
-                break;
-            }
+    }
+
+    private int obtenerTamañoArchivo() {
+        try {
+            return (int) this.archivo.length();
+        } catch (IOException e) {
+            return 0;
         }
     }
-    public Disco leerDisco(int codigo){
-        for (Disco disco: discografia) {
-            if(disco.getCodigo()==(codigo))
-                return disco;
-            
+
+    public void createDisco(Disco disco) {
+        try {
+            archivo.seek(0);
+            if (getNumeroDeSencillos() == 10) {
+                return;
+            }
+            for (int i = 0; i < this.obtenerTamañoArchivo(); i += 350) {
+                archivo.seek(i);
+                if (archivo.readInt() == getCodigo()) {
+                    archivo.seek(i + 149 + (getNumeroDeSencillos() * 25));
+                    archivo.writeInt(disco.getCodigo());
+                    archivo.writeUTF(disco.getNombreDisco());
+                    archivo.writeInt(disco.getAnioDeLanzamiento());
+                    break;
+                }
+            }
+
+        } catch (IOException e) {
+
         }
-        return null;
     }
-     public List<Disco> listarDisco() {
+
+    public Disco readDisco(int codigo) {
+        try {
+            archivo.seek(0);
+
+            for (int i = 0; i < this.obtenerTamañoArchivo(); i += 350) {
+                archivo.seek(i);
+                if (archivo.readInt() == getCodigo()) {
+                    for (int j = 0; j < 10; j++) {
+                        archivo.seek(i + 149 + (i * 25));
+                        if (archivo.readInt() == codigo) {
+                            archivo.seek(i + 149 + (i * 25));
+                            int codigon = archivo.readInt();
+                            String nombre = archivo.readUTF();
+                            int anio = archivo.readInt();
+                            return new Disco(codigon, nombre, anio);
+                        }
+                    }
+                }
+            }
+            return null;
+
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    public void updateDisco(Disco disco) {
+        try {
+            archivo.seek(0);
+
+            for (int i = 0; i < obtenerTamañoArchivo(); i += obtenerTamañoArchivo()) {
+                archivo.seek(i);
+                if (archivo.readInt() == getCodigo()) {
+                    for (int j = 0; j < 10; j++) {
+                        archivo.seek(i + 149 + (j * 25));
+                        int codigoDisco = archivo.readInt();
+                        if (codigoDisco == disco.getCodigo()) {
+                            archivo.writeInt(disco.getCodigo());
+                            archivo.writeUTF(disco.getNombreDisco());
+                            archivo.writeInt(disco.getAnioDeLanzamiento());
+                            break;
+                        }
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error al actualizar el disco");
+        }
+    }
+
+    public void deleteDisco(Disco disco) {
+        try {
+            archivo.seek(0);
+
+            for (int i = 0; i < obtenerTamañoArchivo(); i += obtenerTamañoArchivo()) {
+                archivo.seek(i);
+                if (archivo.readInt() == getCodigo()) {
+                    for (int j = 0; j < 10; j++) {
+                        archivo.seek(i + 149 + (j * 25));
+                        int codigoDisco = archivo.readInt();
+                        if (codigoDisco == disco.getCodigo()) {
+                            archivo.writeInt(0);
+                            archivo.writeUTF("");
+                            archivo.writeInt(0);
+                            break;
+                        }
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error al eliminar el disco");
+        }
+    }
+
+    public List<Disco> listarDisco() {
         return discografia;
     }
+
     @Override
     public String toString() {
         return super.toString() + "\nCantante{" + "nombreArtistico=" + nombreArtistico + ", generoMusica=" + generoMusica + ", numeroDeSencillos=" + numeroDeSencillos + ", numeroDeConciertos=" + numeroDeConciertos + ", numeroDeGiras=" + numeroDeGiras + ", discografia=" + discografia + '}';
     }
-
-  
 
 }

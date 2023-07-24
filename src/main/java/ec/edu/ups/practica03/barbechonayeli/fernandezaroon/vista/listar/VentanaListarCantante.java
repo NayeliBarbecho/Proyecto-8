@@ -214,6 +214,7 @@ public void cambiarIdiomaDisco(Locale localizacion){
        
     }//GEN-LAST:event_formInternalFrameActivated
 private void cargarDatosCantante(){
+    
      DefaultTableModel modelo = (DefaultTableModel) this.tblCantante.getModel();
         modelo.setNumRows(0);
         List<Cantante> listaCantante = cantanteControlador.listar();

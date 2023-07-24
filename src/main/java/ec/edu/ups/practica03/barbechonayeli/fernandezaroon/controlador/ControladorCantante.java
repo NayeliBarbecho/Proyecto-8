@@ -7,6 +7,11 @@ package ec.edu.ups.practica03.barbechonayeli.fernandezaroon.controlador;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.Idao.IControladorCantante;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cantante;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Disco;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,16 +29,16 @@ public class ControladorCantante {
         this.cantanteDAO=cantanteDAO;
         
     }
+     
     public void crear(Cantante cantante){
         this.cantante=cantante;
         cantanteDAO.create(cantante);
         
     }
    
-   
     public void crearDisco(Disco disco,Cantante cantante){
-        this.disco=disco;
-        cantante.agregarDisco(disco);
+        
+        cantante.createDisco(disco);
     }
     public Cantante buscar(int codigo){
         this.cantante=cantanteDAO.read(codigo);
@@ -43,19 +48,19 @@ public class ControladorCantante {
      public boolean eliminar(int codigo) {
         Cantante cantanteEncontrado=this.buscar(codigo);
         if(cantanteEncontrado!=null){
-            cantanteDAO.delete(codigo);
-            cantante.eliminarDisco(codigo);
+            cantanteDAO.delete(cantante);
+            cantante.deleteDisco(disco);
             return true;
         }
         return false;
     }
-     public Disco buscarporDisco(String nombre){
-        return cantanteDAO.buscarPorNombreDeDisco(nombre);
-    }
+     //public Disco buscarporDisco(String nombre){
+       // return cantanteDAO.buscarPorNombreDeDisco(nombre);
+    //}
      public boolean eliminarDisco(int codigo){
         Disco disconcontrado=this.buscarDisco(codigo);
         if(disconcontrado!=null){
-        cantante.eliminarDisco(codigo);
+        cantante.deleteDisco(disco);
         return true;
         }
         return false;
@@ -64,11 +69,11 @@ public class ControladorCantante {
 
     
     
-      public boolean actualizarDisco(Disco disco){
+      public boolean actualizarDisco( Disco disco){
         
          Disco discoEncontrado =this.buscarDisco(disco.getCodigo());
         if(discoEncontrado!=null){
-            cantante.actualizarDisco(disco);
+            cantante.updateDisco(disco);
             
             return true;
         }
@@ -77,7 +82,7 @@ public class ControladorCantante {
          
     }
        public Disco buscarDisco(int codigo){
-        cantante.leerDisco(codigo);
+        cantante.readDisco(codigo);
         System.out.println(this.cantante);
         return this.disco;
         

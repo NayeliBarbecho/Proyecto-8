@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,236 +35,262 @@ public class CantanteDAO implements IControladorCantante {
     private List<Cantante> listaCantantes;
     private RandomAccessFile archivo;
     private String ruta;
-    private int conteoCantante = 0;
 
     public CantanteDAO() {
-        ruta = "src/main/resources/archivos/cantante.data";
 
+        archivo = crearArchivo();
         listaCantantes = new ArrayList<>();
     }
 
-    private String rellenarCadena(String cadena, int longitudDeseada) {
-        int diferencia = longitudDeseada - cadena.length();
-        if (diferencia > 0) {
-            StringBuilder sb = new StringBuilder(cadena);
-            for (int i = 0; i < diferencia; i++) {
-                sb.append(" ");
-            }
-            return sb.toString();
-        } else {
-            return cadena.substring(0, longitudDeseada);
+    private RandomAccessFile crearArchivo() {
+        try {
+            return new RandomAccessFile("src/main/resources/archivos/cantante2.data", "rw");
+        } catch (FileNotFoundException e) {
+            return null;
+        }
+
+    }
+
+    private int obtenerTamañoArchivo() {
+        try {
+            return (int) this.archivo.length();
+        } catch (IOException e) {
+            return 0;
         }
     }
 
-    private int tamañoRegistro() {
-        int tamañoInt = Integer.BYTES;
-        int tamañoDouble = Double.BYTES;
-
-        // Tamaño fijo de cadenas (suponiendo que todos los campos String se ajustan a la longitud especificada)
-        int tamañoStringNombre = 25 * 2; // Cada caracter UTF-8 ocupa 2 bytes
-        int tamañoStringApellido = 25 * 2;
-        int tamañoStringNacionalidad = 20 * 2;
-        int tamañoStringNombreArtistico = 25 * 2;
-        int tamañoStringGenero = 20 * 2;
-
-        // Tamaño de la sección de discos (10 discos * 29 bytes por disco)
-        int tamañoDiscos = 10 * 29;
-        // Calcular el tamaño total del registro sumando los tamaños de los campos
-        int tamañoTotal = tamañoInt + tamañoStringNombre + tamañoStringApellido + tamañoInt + tamañoStringNacionalidad
-                + tamañoDouble + tamañoStringNombreArtistico + tamañoStringGenero + tamañoInt + tamañoInt
-                + tamañoInt + tamañoDiscos;
-
-        return tamañoTotal;
+    private String rellenarCadena(String cadena, int longitudDeseada) {
+        return String.format("%-" + longitudDeseada + "s", cadena).substring(0, longitudDeseada);
     }
 
     @Override
-
     public void create(Cantante cantante) {
         try {
-            archivo = new RandomAccessFile(ruta, "rw");
-
-            long length = archivo.length();
-            archivo.seek(length);
-            listaCantantes.add(cantante);
-
-            // Calcular el tamaño de cada registro (suponiendo que es 250 bytes como en la implementación original)
-            int tamañoRegistro = 250;
-
-            // Posicionarse al final del archivo para agregar el nuevo registro
-            archivo.seek(this.tamañoRegistro());
-
-            // Escribir los datos del compositor en el archivo binario
+            archivo.seek(this.obtenerTamañoArchivo());
             archivo.writeInt(cantante.getCodigo());
+
             archivo.writeUTF(this.rellenarCadena(cantante.getNombre(), 25));
             archivo.writeUTF(this.rellenarCadena(cantante.getApellido(), 25));
             archivo.writeInt(cantante.getEdad());
+
             archivo.writeUTF(this.rellenarCadena(cantante.getNacionalidad(), 20));
+
             archivo.writeDouble(cantante.getSalario());
+
             archivo.writeUTF(this.rellenarCadena(cantante.getNombreArtistico(), 25));
+
             archivo.writeUTF(this.rellenarCadena(cantante.getGeneroMusica(), 20));
             archivo.writeInt(cantante.getNumeroDeSencillos());
+
             archivo.writeInt(cantante.getNumeroDeConciertos());
+
             archivo.writeInt(cantante.getNumeroDeGiras());
-
+            //149
             for (int i = 0; i < 10; i++) {
-                int u = (int) i * 29;
-                archivo.writeInt(0 + u);
-                archivo.writeUTF(this.rellenarCadena("", 15 + u));
-                archivo.writeInt(0 + u);
-                archivo.close();
+                archivo.writeInt(0);
+                archivo.writeUTF(this.rellenarCadena("", 15));
+                archivo.writeInt(0);
             }
 
-            // Actualizar el conteo de compositores (si es necesario)
-            // Incrementar el conteo de cantantes
-            conteoCantante++;
-
-            // Actualizar el conteo de cantantes al principio del archivo
-            archivo.seek(0);
-            archivo.writeInt(conteoCantante);
         } catch (IOException e) {
-            e.printStackTrace();
 
-        } catch (Exception e3) {
-            System.out.println("Eror general");
         }
-
     }
-    private long tamañoArchivo() throws IOException {
-    // Mueve el puntero al final del archivo para obtener su tamaño
-    archivo.seek(archivo.length());
-    return archivo.getFilePointer();
-}
 
     @Override
-public void update(Cantante cantante) {
-    try {
-        long tamañoArchivo = this.tamañoArchivo();
-        int tamañoRegistro = 250;
+    public Cantante read(int codigo) {
+        try {
+            archivo.seek(0);
 
-        for (long o = 0; o < tamañoArchivo; o += tamañoRegistro) {
-            archivo.seek(o);
-            int codigoCompositor = archivo.readInt();
+            for (int i = 0; i < this.obtenerTamañoArchivo(); i += 399) {
+                archivo.seek(i);
+                if (archivo.readInt() == codigo) {
+                    archivo.seek(i);
+                    int cod = archivo.readInt();
+                    String nombre = archivo.readUTF();
+                    String apellido = archivo.readUTF();
+                    int edad = archivo.readInt();
+                    String nacionalidad = archivo.readUTF();
+                    double salario = archivo.readDouble();
+                    String nombreArtistico = archivo.readUTF();
+                    String genero = archivo.readUTF();
+                    int numSencillos = archivo.readInt();
+                    int numConciertos = archivo.readInt();
+                    int numGiras = archivo.readInt();
+                    Cantante cantante = new Cantante(nombreArtistico, genero, numSencillos, numConciertos, numGiras, codigo, nombre, apellido, edad, nacionalidad, salario);
 
-            if (codigoCompositor == cantante.getCodigo()) {
-                // Se encontró el cantante a actualizar, mover el puntero a la posición correcta
-                archivo.seek(o);
+                    for (int j = 0; j < 10; j++) {
 
-                // Actualizar los datos del cantante
-                archivo.writeInt(cantante.getCodigo());
-                archivo.writeUTF(this.rellenarCadena(cantante.getNombre(), 25));
-                archivo.writeUTF(this.rellenarCadena(cantante.getApellido(), 25));
-                archivo.writeInt(cantante.getEdad());
-                archivo.writeUTF(this.rellenarCadena(cantante.getNacionalidad(), 20));
-                archivo.writeDouble(cantante.getSalario());
-                archivo.writeUTF(this.rellenarCadena(cantante.getNombreArtistico(), 25));
-                archivo.writeUTF(this.rellenarCadena(cantante.getGeneroMusica(), 20));
-                archivo.writeInt(cantante.getNumeroDeSencillos());
-                archivo.writeInt(cantante.getNumeroDeConciertos());
-                archivo.writeInt(cantante.getNumeroDeGiras());
+                        int codigoDisco = archivo.readInt();
+                        if (codigoDisco != 0) {
+                            String nombreDisco = archivo.readUTF();
+                            int anio = archivo.readInt();
+                            cantante.agregarDisco(new Disco(codigoDisco, nombreDisco, anio));
+                        } else {
+                            return cantante;
+                        }
 
-                // Mover el puntero a la posición de discografía
-                archivo.seek(161 + o);
-
-                // Actualizar los discos del cantante
-                List<Disco> discos = cantante.getDiscografia();
-                for (int j = 0; j < 10; j++) {
-                    int u = (int) j * 29;
-                    if (j < discos.size()) {
-                        Disco disco = discos.get(j);
-                        archivo.writeInt(disco.getCodigo());
-                        archivo.writeUTF(this.rellenarCadena(disco.getNombreDisco(), 15 + u));
-                        archivo.writeInt(disco.getAnioDeLanzamiento());
-                    } else {
-                        archivo.writeInt(0 + u);
-                        archivo.writeUTF(this.rellenarCadena("", 15 + u));
-                        archivo.writeInt(0 + u);
                     }
+                    return cantante;
                 }
 
-                // Salir del bucle ya que hemos actualizado los datos del cantante
-                break;
             }
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
-
-
-    @Override
-    public void delete(int codigo) {
-        for (int i = 0; i < listaCantantes.size(); i++) {
-            Cantante cantanteGuardado = listaCantantes.get(i);
-            if (cantanteGuardado.getCodigo() == (codigo)) {
-                listaCantantes.remove(i);
-                break;
-            }
-        }
-    }
-
-    @Override
-    public List<Cantante> list() {
-        return listaCantantes;
-    }
-
-    @Override
-    public Disco buscarPorNombreDeDisco(String nombre) {
-        for (Cantante cantante : listaCantantes) {
-            if (cantante instanceof Cantante) {
-                for (Disco disco : cantante.getDiscografia()) {
-                    if (disco.getNombreDisco().equals(nombre)) {
-
-                        return disco;
-                    }
-                }
-            }
+        } catch (IOException e) {
+            return null;
         }
         return null;
     }
 
     @Override
-public Cantante read(int codigo) {
-    try {
-        long tamañoArchivo = this.tamañoArchivo();
-        int tamañoRegistro = 250;
+    public void update(Cantante cantante) {
+        try {
+            archivo.seek(0);
+            for (int i = 0; i < this.obtenerTamañoArchivo(); i += 399) {
+                archivo.seek(i);
+                if (archivo.readInt() == cantante.getCodigo()) {
+                    archivo.seek(i);
+                    archivo.writeInt(cantante.getCodigo());
 
-        for (long o = 0; o < tamañoArchivo; o += tamañoRegistro) {
-            archivo.seek(o);
-            int codigoCompositor = archivo.readInt();
+                    archivo.writeUTF(this.rellenarCadena(cantante.getNombre(), 25));
 
-            if (codigoCompositor == codigo) {
-                Cantante cantante = new Cantante();
+                    archivo.writeUTF(this.rellenarCadena(cantante.getApellido(), 25));
 
-                cantante.setCodigo(codigo);
-                cantante.setNombre(archivo.readUTF());
-                cantante.setApellido(archivo.readUTF());
-                cantante.setEdad(archivo.readInt());
-                cantante.setNacionalidad(archivo.readUTF());
-                cantante.setSalario(archivo.readDouble());
-                cantante.setNombreArtistico(archivo.readUTF());
-                cantante.setGeneroMusica(archivo.readUTF());
-                cantante.setNumeroDeSencillos(archivo.readInt());
-                cantante.setNumeroDeConciertos(archivo.readInt());
-                cantante.setNumeroDeGiras(archivo.readInt());
+                    archivo.writeInt(cantante.getEdad());
 
-                archivo.seek(161 + o);
-                 for (int j = 0; j < 10; j++) {
-                    int u = (int) j * 29;
-                    int codigoDisco = archivo.readInt();
-                    String nombreDisco = archivo.readUTF();
-                    int anioDisco = archivo.readInt();
-                    Disco disco = new Disco(codigoDisco, nombreDisco, anioDisco);
-                    cantante.agregarDisco(disco);
+                    archivo.writeUTF(this.rellenarCadena(cantante.getNacionalidad(), 20));
+
+                    archivo.writeDouble(cantante.getSalario());
+
+                    archivo.writeUTF(this.rellenarCadena(cantante.getNombreArtistico(), 25));
+
+                    archivo.writeUTF(this.rellenarCadena(cantante.getGeneroMusica(), 20));
+
+                    archivo.writeInt(cantante.getNumeroDeConciertos());
+                    archivo.writeInt(cantante.getNumeroDeSencillos());
+
+                    archivo.writeInt(cantante.getNumeroDeGiras());
+                    if (cantante.listarDisco() != null) {
+                        for (Disco disco : cantante.listarDisco()) {
+                            archivo.writeInt(disco.getCodigo());
+                            archivo.writeUTF(this.rellenarCadena(disco.getNombreDisco(), 15));
+                            archivo.writeInt(disco.getAnioDeLanzamiento());
+                        }
+                    } else {
+                        for (int j = 0; j < 10; j++) {
+                            archivo.writeInt(0);
+                            archivo.writeUTF(this.rellenarCadena("", 15));
+                            archivo.writeInt(0);
+                        }
+                    }
                 }
-
-                return cantante;
             }
+
+        } catch (IOException e) {
         }
-    } catch (IOException e) {
-        e.printStackTrace();
     }
 
-    return null; // Si no se encuentra el compositor con el código dado, devolver null
-}
+    @Override
+    public void delete(Cantante cantante) {
+        try {
+            archivo.seek(0);
+            for (int i = 0; i < this.obtenerTamañoArchivo(); i += 399) {
+                archivo.seek(i);
+                if (archivo.readInt() == cantante.getCodigo()) {
+                    archivo.seek(i);
+                    archivo.writeInt(0);
+
+                    archivo.writeUTF(this.rellenarCadena("", 25));
+
+                    archivo.writeUTF(this.rellenarCadena("", 25));
+
+                    archivo.writeInt(0);
+
+                    archivo.writeUTF(this.rellenarCadena("", 20));
+
+                    archivo.writeDouble(0);
+
+                    archivo.writeUTF(this.rellenarCadena("", 25));
+
+                    archivo.writeUTF(this.rellenarCadena("", 20));
+
+                    archivo.writeInt(0);
+
+                    archivo.writeInt(0);
+
+                    for (int j = 0; j < 10; j++) {
+                        archivo.writeInt(0);
+                        archivo.writeUTF(this.rellenarCadena("", 15));
+                        archivo.writeInt(0);
+                    }
+
+                }
+            }
+
+        } catch (IOException e) {
+        }
+    }
+
+    @Override
+    public List<Cantante> list() {
+        try {
+            archivo.seek(0);
+            List<Cantante> lista = new ArrayList<>();
+            for (int i = 0; i < this.obtenerTamañoArchivo(); i += 399) {
+
+                archivo.seek(i);
+                int cod = archivo.readInt();
+                String nombre = archivo.readUTF();
+                String apellido = archivo.readUTF();
+                int edad = archivo.readInt();
+                String nacionalidad = archivo.readUTF();
+                double salario = archivo.readDouble();
+                String nombreArtistico = archivo.readUTF();
+                String genero = archivo.readUTF();
+                int numConciertos = archivo.readInt();
+                int numSencillos = archivo.readInt();
+                int numGiras = archivo.readInt();
+                Cantante cantante = new Cantante(nombreArtistico, genero, numSencillos, numConciertos, numGiras, cod, nombre, apellido, edad, nacionalidad, salario);
+
+                for (int j = 0; j < 10; j++) {
+
+                    int codigoDisco = archivo.readInt();
+                    if (codigoDisco != 0) {
+                        String nombreDisco = archivo.readUTF();
+                        int anio = archivo.readInt();
+                        cantante.agregarDisco(new Disco(codigoDisco, nombreDisco, anio));
+                    } else {
+                        break;
+                    }
+
+                }
+                lista.add(cantante);
+
+            }
+            return lista;
+        } catch (IOException e) {
+            return null;
+        }
+
+    }
+
+    //
+//        @Override
+//        public Cantante buscarPorDisco(String nombre) {
+//            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//        }
+    @Override
+    public Disco buscarPorNombreDeDisco(String nombre) {
+         for (Cantante cantante : listaCantantes) {
+        List<Disco> discos = cantante.listarDisco();
+        if (discos != null) {
+            for (Disco disco : discos) {
+                if (disco.getNombreDisco().equalsIgnoreCase(nombre)) {
+                    return disco;
+                }
+            }
+        }
+    }
+    return null;
+    }
 
 }

@@ -13,11 +13,13 @@ import java.util.List;
  * @author LENOVO
  */
 public interface IControladorCantante {
-    public void  create(Cantante cantante );
+    public void create (Cantante cantante);
+    public  Cantante read(int codigo);
     public void update(Cantante cantante);
-    public abstract Cantante read(int codigo);
-    public void delete(int codigo);
-    public Disco buscarPorNombreDeDisco(String nombre);
+    public void delete(Cantante cantante);
     public List<Cantante> list();
+    public Disco buscarPorNombreDeDisco(String nombre);
+    
+   
    
 }

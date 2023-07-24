@@ -276,11 +276,7 @@ public class VentanaCrearCantante extends javax.swing.JInternalFrame {
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoActionPerformed
-public void crearCompositor(Cantante cantante) {
-        cantanteDAO.crear(cantante);
 
-        
-    }
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         String codigo=txtCodigo.getText();
@@ -312,7 +308,7 @@ public void crearCompositor(Cantante cantante) {
         cantante.setNumeroDeGiras(Integer.parseInt(this.spiGi.getValue().toString()));
         cantante.setNumeroDeSencillos(Integer.parseInt(this.spiSen.getValue().toString()));
         cantanteControlador.crear(cantante);
-        crearCompositor(cantante);
+        
         
         JOptionPane.showMessageDialog(this, "El cantante ha sido creada exitosamente! :)");
         this.limpiarCampos();

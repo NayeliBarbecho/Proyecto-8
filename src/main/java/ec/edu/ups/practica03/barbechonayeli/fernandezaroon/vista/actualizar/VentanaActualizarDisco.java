@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class VentanaActualizarDisco extends javax.swing.JInternalFrame {
 ControladorCantante cantanteControlador;
 private ResourceBundle mensajes;
+
     /**
      * Creates new form VentanaActualizarDisco
      */
@@ -151,8 +152,8 @@ private ResourceBundle mensajes;
        
        String años=txtAnios.getText();
        
-        
-         Disco disco = cantanteControlador.buscarporDisco(nombre);
+        int codigoUno=Integer.parseInt(codigo);
+         Disco disco = cantanteControlador.buscarDisco( codigoUno);
          
         if (disco != null) { 
         txtCodigo.setText(disco.getCodigo()+"");

@@ -6,7 +6,13 @@ package ec.edu.ups.practica03.barbechonayeli.fernandezaroon.controlador;
 
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.Idao.IControlador;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cancion;
+import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Cantante;
 import ec.edu.ups.practica03.barbechonayeli.fernandezaroon.modelo.Compositor;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +30,7 @@ public class ControladorCompositor {
         this.compositorDAO=compositorDAO;
        
     }
+    
      
     
     public void crear(Compositor compositor){
@@ -38,15 +45,15 @@ public class ControladorCompositor {
         this.cancion=cancion;
         compositor.agregarCancion(cancion);
     }
-    public Cancion buscarCancionPorTitulo(String titulo){
-        compositor.leerCancionTitulo(titulo);
+    public Cancion buscarCancionPorTitulo(int codigo){
+        compositor.leerCancionTitulo(codigo);
         System.out.println(this.compositor);
         return this.cancion;
         
     }
     
     public Cancion buscarCancion(int codigo){
-        compositor.leerCancion(codigo);
+        compositor.leerCancionTitulo(codigo);
         System.out.println(this.compositor);
         return this.cancion;
         
@@ -54,7 +61,7 @@ public class ControladorCompositor {
     public boolean eliminarCancion(int codigo){
         Cancion cancionEncontrada=this.buscarCancion(codigo);
         if(cancionEncontrada!=null){
-        compositor.eliminarCancion(codigo);
+        compositor.eliminarCancion(cancion);
         return true;
         }
         return false;
@@ -68,8 +75,8 @@ public class ControladorCompositor {
      public boolean eliminarCompositor(int codigo) {
         Compositor compositorEncontrado=this.buscar(codigo);
         if(compositorEncontrado!=null){
-            compositorDAO.delete(codigo);
-            compositor.eliminarCancion(codigo);
+            compositorDAO.delete(compositor);
+            compositor.eliminarCancion(cancion);
             return true;
         }
         return false;

@@ -141,9 +141,9 @@ private ResourceBundle mensajes;
         String codigo=txtCodigo.getText();
        
        String años=txtAnios.getText();
-       
+       int codigoUno=Integer.parseInt(codigo);
         
-         Disco disco = cantanteControlador.buscarporDisco(nombre);
+         Disco disco = cantanteControlador.buscarDisco(codigoUno);
          
         if (disco != null) { 
         txtCodigo.setText(disco.getCodigo()+"");
