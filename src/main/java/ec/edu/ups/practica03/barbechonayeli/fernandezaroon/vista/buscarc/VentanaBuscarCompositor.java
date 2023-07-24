@@ -18,6 +18,8 @@ import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -333,6 +335,49 @@ public class VentanaBuscarCompositor extends javax.swing.JInternalFrame {
         lblSalario.setText(mensajes.getString("lblsalario"));
         btnBuscar.setText(mensajes.getString("btnbuscar"));
         btnCancelar.setText(mensajes.getString("btncancelar"));
+        
+    }
+ public void cambiarIdiomaCliente(Locale localizacion){
+        mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
+        TableColumnModel columnModel = tblCantante.getColumnModel();
+        TableColumn columnaCodigo = columnModel.getColumn(0);
+        columnaCodigo.setHeaderValue(mensajes.getString("lblcodigo"));
+        TableColumn columnaNombre = columnModel.getColumn(1);
+        columnaNombre.setHeaderValue(mensajes.getString("lblnombre"));
+        TableColumn columnaApellido = columnModel.getColumn(2);
+        columnaApellido.setHeaderValue(mensajes.getString("lblapellido"));
+        TableColumn columnaEdad = columnModel.getColumn(3);
+        columnaEdad.setHeaderValue(mensajes.getString("lbledad"));
+        TableColumn columnaNacionalidad = columnModel.getColumn(4);
+        columnaNacionalidad.setHeaderValue(mensajes.getString("lblnacionalidad"));
+        TableColumn columnaSalario = columnModel.getColumn(5);
+        columnaSalario.setHeaderValue(mensajes.getString("lblsalario"));
+        
+        TableColumn columnaArtistico = columnModel.getColumn(6);
+        columnaArtistico.setHeaderValue(mensajes.getString("lblartistico"));
+        TableColumn columnaGenero = columnModel.getColumn(7);
+        columnaGenero.setHeaderValue(mensajes.getString("lblgenero"));
+        TableColumn columnaSencillos = columnModel.getColumn(8);
+        columnaSencillos.setHeaderValue(mensajes.getString("lblsencillos"));
+        TableColumn columnaConcierto = columnModel.getColumn(9);
+        columnaConcierto.setHeaderValue(mensajes.getString("lblconciertos"));
+        TableColumn columnaGiras = columnModel.getColumn(10);
+        columnaGiras.setHeaderValue(mensajes.getString("lblgiras"));
+        TableColumn columnaSalarioF = columnModel.getColumn(11);
+        columnaSalarioF.setHeaderValue(mensajes.getString("lblsalario"));
+    }
+public void cambiarIdiomaCancion(Locale localizacion){
+        mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
+        TableColumnModel columnModel = tblCancion.getColumnModel();
+        TableColumn columnaCodigo = columnModel.getColumn(0);
+        columnaCodigo.setHeaderValue(mensajes.getString("lblcodigo"));
+        TableColumn columnaNombre = columnModel.getColumn(1);
+        columnaNombre.setHeaderValue(mensajes.getString("lbltitulo"));
+        TableColumn columnaLetra = columnModel.getColumn(2);
+        columnaLetra.setHeaderValue(mensajes.getString("lblletra"));
+        TableColumn columnaTiempo = columnModel.getColumn(3);
+        columnaTiempo.setHeaderValue(mensajes.getString("lbltiempo"));
+        
         
     }
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

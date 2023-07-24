@@ -534,7 +534,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             ventanaBuscarCompositor = new VentanaBuscarCompositor(compositorControlador, cantanteControlador);
             desktopPane.add(ventanaBuscarCompositor);
         }
-        ventanaCrearCompositor.cambiarIdioma(localizacion);
+        ventanaBuscarCompositor.cambiarIdiomaCancion(localizacion);
+        ventanaBuscarCompositor.cambiarIdiomaCliente(localizacion);
+        ventanaBuscarCompositor.cambiarIdioma(localizacion);
         ventanaBuscarCompositor.setVisible(true);
     }//GEN-LAST:event_menuItemBuscarCompositorActionPerformed
 
@@ -561,7 +563,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             ventanaBuscarCantante = new VentanaBuscarCantante(cantanteControlador);
             desktopPane.add(ventanaBuscarCantante);
         }
-        //ventanaBuscarCantante.cambiarIdioma(localizacion);
+        ventanaBuscarCantante.cambiarIdioma(localizacion);
+        ventanaBuscarCantante.cambiarIdiomaDisco(localizacion);
         ventanaBuscarCantante.setVisible(true);
     }//GEN-LAST:event_menuItemBuscarCantanteActionPerformed
 

@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -349,6 +351,19 @@ public void cambiarIdioma(Locale localizacion){
         lblSalario.setText(mensajes.getString("lblsalario"));
         btnBuscar.setText(mensajes.getString("btnbuscar"));
         btnCancelar.setText(mensajes.getString("btncancelar"));
+    }
+public void cambiarIdiomaDisco(Locale localizacion){
+        mensajes = ResourceBundle.getBundle("mensajes.mensaje", localizacion);
+        TableColumnModel columnModel = tblDiscos.getColumnModel();
+        TableColumn columnaCodigo = columnModel.getColumn(0);
+        columnaCodigo.setHeaderValue(mensajes.getString("lblcodigo"));
+        TableColumn columnaNombre = columnModel.getColumn(1);
+        columnaNombre.setHeaderValue(mensajes.getString("lblnombre"));
+        TableColumn columnaAnio = columnModel.getColumn(2);
+        columnaAnio.setHeaderValue(mensajes.getString("lblanio"));
+        
+        
+        
     }
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         // TODO add your handling code here:
